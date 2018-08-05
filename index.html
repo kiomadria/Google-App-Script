@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+     
+  </head>
+  <body background="https://i.pinimg.com/originals/64/12/f7/6412f7be1f49fa9dbcf0d5d8802eff5e.jpg">
+    <form onsubmit="sendText(event)">
+     <b>Enter Millage:</b> <input type="text" name="millage" />
+     
+     <select name="user">
+       <option value="glen">Glen</option>
+       <option value="meegs">Meegs</option>
+       <option value="jen">Jen</option>
+     </select>
+      
+      <input type="submit" value="submit" />
+    </form>
+    
+    <script>
+ 
+    function sendText(e){
+      e.preventDefault();
+          
+      var data = {
+        millage: e.target['millage'].value,
+        user: e.target['user'].value
+      }
+
+    google.script.run
+      .withSuccessHandler(function(response){
+        console.log(response);
+      }) 
+      .sendText(data);
+      
+    }
+    
+
+      
+    </script>
+  </body>
+</html>
+
+
