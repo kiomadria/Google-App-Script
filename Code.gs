@@ -9,6 +9,17 @@ function doPost(e){
 function sendText(data){
   var sheet = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM').getActiveSheet();
   var challegeDay = sheet.getRange(3, 7).getValue();
+  Logger.log(data.day);
+  
+  if (data.day == "today"){
+    var inputDay = challegeDay
+    Logger.log("today")
+    } if (data.day == "yesterday"){
+      var inputDay = challegeDay - 1
+    }if (data.day == "dayBeforeYesterday"){
+      var inputDay = challegeDay - 2
+    }
+ 
   if (data.user == 'glen'){
     var userCol = "1"
   } if (data.user == 'meegs'){
@@ -16,8 +27,10 @@ function sendText(data){
     }if (data.user == 'jen'){
           var userCol = "3"
       };
-    
-  sheet.getRange(challegeDay, userCol).setValue(data.millage);
+  Logger.log(challegeDay);  
+  Logger.log(inputDay);  
+
+  sheet.getRange(inputDay, userCol).setValue(data.millage);
    
   return 'Success!';
   

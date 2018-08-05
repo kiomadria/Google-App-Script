@@ -13,18 +13,26 @@
        <option value="meegs">Meegs</option>
        <option value="jen">Jen</option>
      </select>
-      
-      <input type="submit" value="submit" />
+ 
+      <select name="day">
+       <option value="today">Today</option>
+       <option value="yesterday">Yesterday</option>
+       <option value="dayBeforeYesterday">Day Before Yesterday</option>
+     </select>
+     
+     
+     <input type="submit" value="submit" />
     </form>
     
     <script>
  
     function sendText(e){
       e.preventDefault();
-          
+      
       var data = {
         millage: e.target['millage'].value,
-        user: e.target['user'].value
+        user: e.target['user'].value,
+        day: e.target['day'].value
       }
 
     google.script.run
