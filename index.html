@@ -38,14 +38,34 @@
     google.script.run
       .withSuccessHandler(function(response){
         console.log(response);
-      }) 
+      })
+      
       .sendText(data);
       
-    }
+          }
     
 
       
     </script>
+    
+    <div>
+    <? ?>
+    <h3 style="color:Tomato;">Glen has walked <?=responses[0].glen ?> miles   |    Meegs has walked <?=responses[0].meegs ?> miles    |    Jen has walked <?=responses[0].jen ?> miles</h3>
+    
+    
+    </div>
+   
+    <? for (var i =1; i < responses.length; i++) { ?>
+        <?if (responses[i].glen < responses[0].glen) {?>
+           <? glenLoc = responses[i].location?>
+        <?}?>
+       <h3 style="color:White;"> Glen has gotten to the point in the story where:  <?=glenLoc ?></h3>
+       
+    <? } ?>
+    
+    <div>
+    
+    </div>
   </body>
 </html>
 

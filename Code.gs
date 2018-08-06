@@ -1,5 +1,11 @@
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index').setTitle('Walking to Mordor');
+function doGet(e) {
+  var html = HtmlService.createTemplateFromFile('index');
+  var responses = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM');
+  
+  
+  html.responses = parseResponses(responses.getDataRange().getValues())
+  
+  return html.evaluate();
 }
 
 function doPost(e){
@@ -7,7 +13,7 @@ function doPost(e){
 }
 
 function sendText(data){
-  var sheet = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM').getActiveSheet();
+  var sheet = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM').getSheetByName('Data');
   var challegeDay = sheet.getRange(3, 7).getValue();
   Logger.log(data.day);
   
@@ -37,7 +43,7 @@ function sendText(data){
 }
 function challegeDay()
 {
-  var sheet = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM').getActiveSheet();
+  var sheet = SpreadsheetApp.openById('1lR7PBX_H8A7a5Rr8drpDK2CpaWmYe1UjxioJ3_KUePM').getSheetByName('Data');
   var challegeDay = sheet.getRange(3,7).getValue();
   sheet.getRange(3,7).setValue(challegeDay +1);
   var newChallegeDay = sheet.getRange(3,7).getValue();
@@ -45,5 +51,23 @@ function challegeDay()
    //set the date
   var curDate = Utilities.formatDate(new Date(), "GMT-5", "MM/dd/yyyy");
   sheet.getRange(newChallegeDay, 4).setValue( curDate);
-  
 }
+
+function parseResponses(values){
+  var responses = [];
+  for (var i = 1; i < values.length; i++){
+    responses.push({
+      glen: values[i][0],
+      meegs: values[i][1],
+      jen: values[i][2],
+      location: values[i][5]
+      
+    });
+  }
+  Logger.log(responses.location);
+  return responses;
+
+}
+
+
+
